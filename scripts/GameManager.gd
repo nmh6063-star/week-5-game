@@ -51,7 +51,13 @@ func _ready():
 	for room in rooms:
 		room._check(roomAssignment[counter])
 		counter += 1
-	
+		
+	# mark valid rooms for minimap
+	for r in rooms:
+		Global.mark_valid(r.position / 288)
+
+	# starting room visited
+	Global.mark_visited(Global.room_position)
 			
 	
 	
@@ -125,3 +131,10 @@ func _room_gen():
 		lastDir = "pass"
 	inst.position = roomPos * 288
 	rooms.append(inst)
+
+
+func _unhandled_input(event):
+	# Press Q to quit the game
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_Q:
+			get_tree().quit()
