@@ -1,9 +1,5 @@
 extends Node
 
-var bullet_count = 10
-var player_health = 5
-var room_position = Vector2.ZERO
-
 var level_data = [{
   "box": 1,
   "coordinates": [Vector2(-8, 7),

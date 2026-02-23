@@ -51,6 +51,7 @@ func _ready():
 	for room in rooms:
 		room._check(roomAssignment[counter])
 		counter += 1
+	move_child(get_node("Player"), -1) 
 	
 			
 	
