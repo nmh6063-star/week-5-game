@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvhdhgbn0jr0w"
-path="res://.godot/imported/Rain-drop-splash_2_Big1.png-63cd6f7a5d24c1f03a0a4a01dc157d50.ctex"
+uid="uid://4s3hojn10dt6"
+path="res://.godot/imported/keyboard-&-mouse_sheet_default.png-b558e5b42906af285ee03907b50ceb15.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/PostApocalypse_AssetPack_v1.1.2/Objects/Nature/Flowers_Mashrooms_Other-nature-stuff/Puddles-And-Water-Anim/Animations/PNG Frames/Rain-drop-splash_2/Rain-drop-splash_2_Big1.png"
-dest_files=["res://.godot/imported/Rain-drop-splash_2_Big1.png-63cd6f7a5d24c1f03a0a4a01dc157d50.ctex"]
+source_file="res://assets/Kenny_Input_Prompts/keyboard-&-mouse_sheet_default.png"
+dest_files=["res://.godot/imported/keyboard-&-mouse_sheet_default.png-b558e5b42906af285ee03907b50ceb15.ctex"]
 
 [params]
 

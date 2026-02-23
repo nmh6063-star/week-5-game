@@ -6,9 +6,12 @@ var animator
 
 var bullet = preload("res://scenes/bullet.tscn")
 
+var UI
+
 func _ready():
 	cam = get_viewport().get_camera_2d()
 	animator = get_node("AnimatedSprite2D")
+	UI = get_node("../UI")
 
 func _physics_process(delta):
 	var horizontal = Input.get_axis("move_left", "move_right")
@@ -51,6 +54,7 @@ func _physics_process(delta):
 		inst.rotation = atan(distance.y/distance.x)
 		get_tree().get_root().add_child(inst)
 		Global.bullet_count -= 1
+		UI.update_bullet_count()
 		print(Global.bullet_count)
 	if self.position.x < (Global.room_position.x - 1) * 288 + 125:
 		cam.move = true

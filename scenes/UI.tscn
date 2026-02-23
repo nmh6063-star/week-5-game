@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://cchdjysa301ur"]
+
+[ext_resource type="Texture2D" uid="uid://4s3hojn10dt6" path="res://assets/Kenny_Input_Prompts/keyboard-&-mouse_sheet_default.png" id="1_dj8aq"]
+[ext_resource type="Texture2D" uid="uid://cbfmwvqdl3hp4" path="res://assets/PostApocalypse_AssetPack_v1.1.2/UI/Bullet Indicators/Pistol-Bullet.png" id="3_5en4g"]
+[ext_resource type="Script" uid="uid://dkwjrqnbdpm6u" path="res://scripts/HealthUI.gd" id="3_health"]
+[ext_resource type="Script" path="res://scripts/UIScript.gd" id="4_ui"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ua6yw"]
+atlas = ExtResource("1_dj8aq")
+region = Rect2(328, 64, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ro3t7"]
+atlas = ExtResource("1_dj8aq")
+region = Rect2(328, 840, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5en4g"]
+atlas = ExtResource("1_dj8aq")
+region = Rect2(328, 200, 48, 48)
+
+[node name="UI" type="CanvasLayer" unique_id=1925856175]
+script = ExtResource("4_ui")
+
+[node name="Control" type="Control" parent="." unique_id=217808736]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 718.0
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=787084814]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 675.0
+offset_right = 1281.0
+offset_bottom = 721.0
+color = Color(0.19434929, 0.19434926, 0.19434926, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=527677944]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer" unique_id=1627570364]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 2
+
+[node name="AimControls" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=1174500980]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TextureButton" type="TextureButton" parent="Control/MarginContainer/HBoxContainer/AimControls" unique_id=1506642943]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ua6yw")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/HBoxContainer/AimControls" unique_id=1923282490]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Aim"
+
+[node name="MoveControls" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=1414909025]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TextureButton" type="TextureButton" parent="Control/MarginContainer/HBoxContainer/MoveControls" unique_id=333319576]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ro3t7")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/HBoxContainer/MoveControls" unique_id=40652981]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Move"
+
+[node name="ShootControls" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=353339265]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TextureButton" type="TextureButton" parent="Control/MarginContainer/HBoxContainer/ShootControls" unique_id=609195202]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_5en4g")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/HBoxContainer/ShootControls" unique_id=221701691]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Shoot"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control" unique_id=1914982901]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 20.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="Health" type="HBoxContainer" parent="Control/MarginContainer2" unique_id=1008150181]
+layout_mode = 2
+theme_override_constants/separation = 8
+script = ExtResource("3_health")
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control" unique_id=749173982]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -41.0
+offset_top = -83.0
+offset_right = -1.0
+offset_bottom = -43.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer3" unique_id=567356687]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer3/HBoxContainer" unique_id=133803152]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+texture = ExtResource("3_5en4g")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="BulletCount" type="Label" parent="Control/MarginContainer3/HBoxContainer" unique_id=139654313]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "x 10"

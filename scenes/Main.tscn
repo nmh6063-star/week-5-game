@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bfx5alngg5wly" path="res://assets/PostApocalypse_AssetPack_v1.1.2/Character/Main/Run/Character_side_run_no-hands-Sheet6.png" id="10_mwfav"]
 [ext_resource type="Texture2D" uid="uid://cfqhoho7ctl5s" path="res://assets/PostApocalypse_AssetPack_v1.1.2/Character/Main/Run/Character_up_run_no-hands-Sheet6.png" id="11_3p2gp"]
 [ext_resource type="Script" uid="uid://d1gsrmcrubqd6" path="res://scripts/CursorScript.gd" id="13_qmy6f"]
+[ext_resource type="PackedScene" uid="uid://cchdjysa301ur" path="res://scenes/UI.tscn" id="14_mwfav"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rarhs"]
 atlas = ExtResource("3_0bbpv")
@@ -429,5 +430,7 @@ script = ExtResource("13_qmy6f")
 
 [node name="Timer" type="Timer" parent="." unique_id=1644078839]
 process_callback = 0
+
+[node name="UI" parent="." unique_id=1349782535 instance=ExtResource("14_mwfav")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

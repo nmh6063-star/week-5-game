@@ -13,10 +13,12 @@ var rooms = []
 var roomAssignment = []
 var roomy = 0
 var downCounter = 0
+var UI
 
 func _ready():
 	#process_mode = Node.PROCESS_MODE_ALWAYS
 	cursor = get_node("Cursor")
+	UI = get_node("UI")
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	$Timer.start()
 	roomPos.x = randi_range(xBounds.x, xBounds.y)
@@ -57,6 +59,7 @@ func _ready():
 func _on_timer_timeout():
 	if Global.bullet_count < 10:
 		Global.bullet_count += 1
+		UI.update_bullet_count()
 		print("add")
 	
 func _room_gen():
