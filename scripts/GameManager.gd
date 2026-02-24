@@ -55,6 +55,8 @@ func _ready():
 			room._check(roomAssignment[counter], false)
 		counter += 1
 	move_child(get_node("Player"), -1) 
+	move_child(get_node("Enemy"), -1) 
+	move_child(get_node("Cursor"), -1) 
 	
 		
 	# mark valid rooms for minimap

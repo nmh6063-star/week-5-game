@@ -14,6 +14,61 @@
 [ext_resource type="Texture2D" uid="uid://cfqhoho7ctl5s" path="res://assets/PostApocalypse_AssetPack_v1.1.2/Character/Main/Run/Character_up_run_no-hands-Sheet6.png" id="11_3p2gp"]
 [ext_resource type="Script" uid="uid://d1gsrmcrubqd6" path="res://scripts/CursorScript.gd" id="13_qmy6f"]
 [ext_resource type="PackedScene" uid="uid://cchdjysa301ur" path="res://scenes/UI.tscn" id="14_mwfav"]
+[ext_resource type="Script" uid="uid://b5tahl0jpkqnl" path="res://scenes/EnemyScript.gd" id="15_cvmbd"]
+[ext_resource type="Texture2D" uid="uid://kthdee5te054" path="res://assets/PostApocalypse_AssetPack_v1.1.2/Enemies/Zombie_Small/Zombie_Small_Down_Idle-Sheet6.png" id="16_ft6cd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyyw8"]
+atlas = ExtResource("16_ft6cd")
+region = Rect2(0, 0, 13, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjpm3"]
+atlas = ExtResource("16_ft6cd")
+region = Rect2(13, 0, 13, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knagv"]
+atlas = ExtResource("16_ft6cd")
+region = Rect2(26, 0, 13, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_siyqs"]
+atlas = ExtResource("16_ft6cd")
+region = Rect2(39, 0, 13, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pb578"]
+atlas = ExtResource("16_ft6cd")
+region = Rect2(52, 0, 13, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vshs7"]
+atlas = ExtResource("16_ft6cd")
+region = Rect2(65, 0, 13, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2ki8c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dyyw8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjpm3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knagv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_siyqs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pb578")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vshs7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0owt5"]
+size = Vector2(12, 17)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rarhs"]
 atlas = ExtResource("3_0bbpv")
@@ -405,8 +460,30 @@ animations = [{
 script = ExtResource("1_0bbpv")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1695631668]
-zoom = Vector2(3.5, 3.5)
 script = ExtResource("2_bjd11")
+
+[node name="Enemy" type="CharacterBody2D" parent="." unique_id=740539028]
+collision_mask = 5
+script = ExtResource("15_cvmbd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy" unique_id=533057715]
+sprite_frames = SubResource("SpriteFrames_2ki8c")
+autoplay = "default"
+frame_progress = 0.2221892
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy" unique_id=1873646232]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_0owt5")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Enemy" unique_id=1534141720]
+path_desired_distance = 3.0
+target_desired_distance = 3.0
+path_postprocessing = 1
+avoidance_enabled = true
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="Enemy" unique_id=1354693519]
+autostart = true
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1812922342]
 collision_layer = 2
@@ -433,4 +510,6 @@ process_callback = 0
 
 [node name="UI" parent="." unique_id=1349782535 instance=ExtResource("14_mwfav")]
 
+[connection signal="velocity_computed" from="Enemy/NavigationAgent2D" to="Enemy" method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Enemy/Timer" to="Enemy" method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
