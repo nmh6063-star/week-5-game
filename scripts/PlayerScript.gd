@@ -15,7 +15,7 @@ var bat_sprite
 var is_melee_attacking = false
 var melee_cooldown = 0.25
 var melee_active_time = 0.12
-var melee_range = 55.0
+var melee_range = 25.0
 var melee_arc_points = 18
 var last_melee_time = -999.0
 
@@ -176,7 +176,7 @@ func _try_melee_attack():
 func _on_melee_area_body_entered(body):
 	if body == self:
 		return
-
+	print(body)
 	if body.has_method("take_damage"):
 		body.take_damage(1)
 	elif body.has_method("hit"):

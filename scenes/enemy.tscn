@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://duh0qmlgepthe"]
+
+[ext_resource type="Script" uid="uid://b5tahl0jpkqnl" path="res://scripts/EnemyScript.gd" id="1_md0e3"]
+[ext_resource type="Texture2D" uid="uid://kthdee5te054" path="res://assets/PostApocalypse_AssetPack_v1.1.2/Enemies/Zombie_Small/Zombie_Small_Down_Idle-Sheet6.png" id="2_4ra3w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mou0d"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(0, 0, 13, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugmlg"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(13, 0, 13, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qd1pt"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(26, 0, 13, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwcyu"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(39, 0, 13, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsknx"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(52, 0, 13, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gia1l"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(65, 0, 13, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aw8hi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mou0d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugmlg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qd1pt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwcyu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsknx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gia1l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cm7k6"]
+size = Vector2(16, 17)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1130448292]
+script = ExtResource("1_md0e3")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=170392627]
+path_desired_distance = 3.0
+target_desired_distance = 3.0
+path_postprocessing = 1
+avoidance_enabled = true
+debug_enabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1963605452]
+sprite_frames = SubResource("SpriteFrames_aw8hi")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1440189250]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_cm7k6")
+
+[node name="Timer" type="Timer" parent="." unique_id=451370609]
+autostart = true
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

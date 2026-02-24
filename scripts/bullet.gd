@@ -10,5 +10,7 @@ func _physics_process(delta):
 	velocity = direction * speed
 	var collision = move_and_collide(velocity * delta * speed)
 	if collision and collision.get_collider().name != "Player":
+		if collision.get_collider().has_method("slow"):
+			collision.get_collider().slow()
 		self.queue_free()
 		#print("AHHH")

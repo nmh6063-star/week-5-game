@@ -19,6 +19,10 @@ var commit = [0, -25]
 
 var direction
 
+var health = 1
+
+var timer = 0
+
 @onready var nav_agent = $NavigationAgent2D
 
 func _ready():
@@ -59,14 +63,20 @@ func _physics_process(delta):
 	
 	if !nav_agent.is_target_reached():
 		var nav_point_direction = to_local(nav_agent.get_next_path_position()).normalized()
-		var new_velocity = nav_point_direction * speed
+		var tempSpeed = speed
+		if timer > 0:
+			tempSpeed /= 2
+		var new_velocity = nav_point_direction * tempSpeed
 		if nav_agent.avoidance_enabled:
 			nav_agent.set_velocity(new_velocity)
 		else:
 			_on_navigation_agent_2d_velocity_computed(new_velocity)
 		move_and_slide()
-		print(get_node("/root/Node2D/Player").position)
-	print(nav_agent.is_target_reached())
+	#print(nav_agent.is_target_reached())
+	if health <= 0:
+		self.queue_free()
+	if timer > 0:
+		timer -= delta
 	
 func _on_timer_timeout():
 	if nav_agent.target_position != Vector2(50, 50) or nav_agent.is_target_reachable():
@@ -76,6 +86,13 @@ func _on_timer_timeout():
 func _draw():
 	for dir in dirs:
 		draw_line(self.position, self.position + Vector2(dir[0], dir[1]), Color.GREEN, 1.0)
+
+func take_damage(damage):
+	health -= damage
+
+func slow():
+	timer = clamp(timer + 1, 0, 5)
+	
 
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
