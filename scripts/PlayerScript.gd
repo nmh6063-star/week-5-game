@@ -7,6 +7,7 @@ var animator
 var bullet = preload("res://scenes/bullet.tscn")
 
 var UI
+var Health
 
 var melee_area
 var melee_poly
@@ -23,6 +24,7 @@ func _ready():
 	cam = get_viewport().get_camera_2d()
 	animator = get_node("AnimatedSprite2D")
 	UI = get_node("../UI")
+	Health = get_node("../UI/Control/MarginContainer2/Health")
 	melee_area = get_node("MeleeArea")
 	melee_poly = get_node("MeleeArea/MeleeShape")
 	bat_sprite = get_node("BatSprite")
@@ -186,3 +188,8 @@ func _on_melee_area_body_entered(body):
 			body.die()
 	else:
 		print("Melee hit: ", body.name)
+
+func take_damage(dmg: int):
+	Global.player_health -= dmg
+	Health.update_hearts()
+	print("damage taken")

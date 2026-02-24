@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bphp1atcxopk7"]
+
+[ext_resource type="Script" uid="uid://xikolf3iyhbo" path="res://scripts/bp_simple_shot.gd" id="1_aimed"]
+[ext_resource type="PackedScene" uid="uid://db5q1yplrihsr" path="res://scenes/enemy_bullet.tscn" id="2_bxm2f"]
+
+[node name="SimpleShot" type="Node2D" unique_id=400525675]
+script = ExtResource("1_aimed")
+bullet_scene = ExtResource("2_bxm2f")

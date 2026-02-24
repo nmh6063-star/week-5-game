@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ce4p7e5isokx1"]
+
+[ext_resource type="Script" uid="uid://bjew2770w8vgx" path="res://scripts/bp_burst_shot.gd" id="1_yxe3t"]
+[ext_resource type="PackedScene" uid="uid://db5q1yplrihsr" path="res://scenes/enemy_bullet.tscn" id="2_03vbu"]
+
+[node name="BurstShot" type="Node2D" unique_id=1591347576]
+script = ExtResource("1_yxe3t")
+bullet_scene = ExtResource("2_03vbu")

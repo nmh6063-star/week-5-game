@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cmfee5twbjlu7"]
+
+[ext_resource type="Script" uid="uid://dvmi53wo1vwg5" path="res://scripts/bullet_pattern.gd" id="1_aa670"]
+[ext_resource type="PackedScene" uid="uid://db5q1yplrihsr" path="res://scenes/enemy_bullet.tscn" id="2_aa670"]
+
+[node name="bullet_pattern" type="Node2D" unique_id=527457874]
+scale = Vector2(2, 2)
+script = ExtResource("1_aa670")
+bullet_scene = ExtResource("2_aa670")
+
+[node name="Timer" type="Timer" parent="." unique_id=1645714687]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

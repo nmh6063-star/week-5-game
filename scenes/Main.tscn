@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://deiipik5pasd2" path="res://assets/PostApocalypse_AssetPack_v1.1.2/Character/Bat/Bat_side_attack-Sheet4.png" id="14_1nqs0"]
 [ext_resource type="PackedScene" uid="uid://cchdjysa301ur" path="res://scenes/UI.tscn" id="14_mwfav"]
 [ext_resource type="Texture2D" uid="uid://cedwuwmrmy6ip" path="res://assets/PostApocalypse_AssetPack_v1.1.2/Character/Bat/Bat_up_attack-Sheet4.png" id="15_1iba3"]
-[ext_resource type="PackedScene" uid="uid://duh0qmlgepthe" path="res://scenes/enemy.tscn" id="19_nfivy"]
+[ext_resource type="PackedScene" uid="uid://ddqedtj2tgbok" path="res://scenes/enemy.tscn" id="19_nfivy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rarhs"]
 atlas = ExtResource("3_0bbpv")

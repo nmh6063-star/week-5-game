@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dxyr4fnba3gcs"]
+
+[ext_resource type="Script" uid="uid://duf67bomr71sk" path="res://scripts/bp_spread_shot.gd" id="1_spread"]
+[ext_resource type="PackedScene" uid="uid://db5q1yplrihsr" path="res://scenes/enemy_bullet.tscn" id="2_aflnl"]
+
+[node name="SpreadShot" type="Node2D" unique_id=500000001]
+script = ExtResource("1_spread")
+bullet_scene = ExtResource("2_aflnl")

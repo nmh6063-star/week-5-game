@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://db5q1yplrihsr"]
+
+[ext_resource type="Texture2D" uid="uid://bo4o0i5obfibe" path="res://assets/PostApocalypse_AssetPack_v1.1.2/Character/Guns/Bullets/Shotgun-bullet.png" id="1_d2qol"]
+[ext_resource type="Script" uid="uid://rwqd2857b0ng" path="res://scripts/enemy_bullet.gd" id="1_eblt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qx7rs"]
+size = Vector2(8.433356, 2.828156)
+
+[node name="EnemyBullet" type="CharacterBody2D" unique_id=1903908952]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_eblt")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1292866028]
+position = Vector2(1.1920929e-07, 5.9604645e-08)
+scale = Vector2(2.8124998, 2.8125)
+texture = ExtResource("1_d2qol")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=739744649]
+position = Vector2(6.9737434e-05, 0.010770202)
+shape = SubResource("RectangleShape2D_qx7rs")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=2018626593]
+rect = Rect2(-4.221482, -1.391853, 8.425926, 2.8007426)

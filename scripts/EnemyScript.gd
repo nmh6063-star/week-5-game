@@ -25,8 +25,18 @@ var timer = 0
 
 @onready var nav_agent = $NavigationAgent2D
 
+var bullet_pattern: BulletPattern
+
 func _ready():
 	nav_agent.target_position = get_node("/root/Node2D/Player").position
+	
+	for child in get_children():
+		if child is BulletPattern:
+			bullet_pattern = child
+			break # Stop once we find one
+			
+	if bullet_pattern == null:
+		push_warning("Enemy has no BulletPattern child node!")
 	#nav_agent.navigation_finished.connect(_on_nav_finished)
 	#nav_agent.velocity_computed.connect(_on_navigation_agent_2d_velocity_computed)
 	#make_path(Vector2(randi_range(0, 10), randi_range(0, 10)))
@@ -77,7 +87,11 @@ func _physics_process(delta):
 		self.queue_free()
 	if timer > 0:
 		timer -= delta
-	
+		
+	var player = get_node_or_null("/root/Node2D/Player")
+	if player and bullet_pattern:
+		bullet_pattern.fire(player.global_position)
+
 func _on_timer_timeout():
 	if nav_agent.target_position != Vector2(50, 50) or nav_agent.is_target_reachable():
 		nav_agent.target_position = nav_agent.target_position + ((get_node("/root/Node2D/Player").position - nav_agent.target_position)/5)
