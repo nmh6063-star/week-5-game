@@ -79,14 +79,14 @@ func _physics_process(delta):
 		cam.move = true
 		Global.room_position.y += 1
 		var new_center = Global.room_position * 288
-		cam.target = new_center + cam_offset
+		cam.target = new_center + cam_offset - Vector2(0, 125)
 		get_tree().paused = true
 		UI.on_enter_room(Global.room_position)
 	elif self.position.y < (Global.room_position.y - 1) * 288 + 125:
 		cam.move = true
 		Global.room_position.y -= 1
 		var new_center = Global.room_position * 288
-		cam.target = new_center + cam_offset
+		cam.target = new_center + cam_offset + Vector2(0, 125)
 		get_tree().paused = true
 		UI.on_enter_room(Global.room_position)
 	

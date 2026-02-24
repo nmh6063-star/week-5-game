@@ -49,12 +49,13 @@ func _ready():
 			roomAssignment.append(roomDirections[roomType])
 			rooms.append(inst)
 	for room in rooms:
-		room._check(roomAssignment[counter])
+		if counter == 0:
+			room._check(roomAssignment[counter], true)
+		else:
+			room._check(roomAssignment[counter], false)
 		counter += 1
-<<<<<<< HEAD
 	move_child(get_node("Player"), -1) 
 	
-=======
 		
 	# mark valid rooms for minimap
 	for r in rooms:
@@ -62,7 +63,6 @@ func _ready():
 
 	# starting room visited
 	Global.mark_visited(Global.room_position)
->>>>>>> 3aec58d305b8397d943fb37ebaec30d84d6b2221
 			
 	
 	
