@@ -56,25 +56,38 @@ func _physics_process(delta):
 		Global.bullet_count -= 1
 		UI.update_bullet_count()
 		print(Global.bullet_count)
+		
+	# --- Room transition ---
+	var old_center = Global.room_position * 288
+	var cam_offset = cam.position - old_center
+
 	if self.position.x < (Global.room_position.x - 1) * 288 + 125:
 		cam.move = true
 		Global.room_position.x -= 1
-		cam.target = Global.room_position * 288
+		var new_center = Global.room_position * 288
+		cam.target = new_center + cam_offset
 		get_tree().paused = true
+		UI.on_enter_room(Global.room_position) # <- 给 minimap 用（下面会加）
 	elif self.position.x > (Global.room_position.x + 1) * 288 - 125:
 		cam.move = true
 		Global.room_position.x += 1
-		cam.target = Global.room_position * 288
+		var new_center = Global.room_position * 288
+		cam.target = new_center + cam_offset
 		get_tree().paused = true
+		UI.on_enter_room(Global.room_position)
 	elif self.position.y > (Global.room_position.y + 1) * 288 - 125:
 		cam.move = true
 		Global.room_position.y += 1
-		cam.target = Vector2(Global.room_position.x * 288, Global.room_position.y * 288 - 45.0)
+		var new_center = Global.room_position * 288
+		cam.target = new_center + cam_offset
 		get_tree().paused = true
+		UI.on_enter_room(Global.room_position)
 	elif self.position.y < (Global.room_position.y - 1) * 288 + 125:
 		cam.move = true
 		Global.room_position.y -= 1
-		cam.target = Vector2(Global.room_position.x * 288, Global.room_position.y * 288 + 45.0)
+		var new_center = Global.room_position * 288
+		cam.target = new_center + cam_offset
 		get_tree().paused = true
+		UI.on_enter_room(Global.room_position)
 	
 	

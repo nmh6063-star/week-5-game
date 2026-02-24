@@ -3,7 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://4s3hojn10dt6" path="res://assets/Kenny_Input_Prompts/keyboard-&-mouse_sheet_default.png" id="1_dj8aq"]
 [ext_resource type="Texture2D" uid="uid://cbfmwvqdl3hp4" path="res://assets/PostApocalypse_AssetPack_v1.1.2/UI/Bullet Indicators/Pistol-Bullet.png" id="3_5en4g"]
 [ext_resource type="Script" uid="uid://dkwjrqnbdpm6u" path="res://scripts/HealthUI.gd" id="3_health"]
-[ext_resource type="Script" path="res://scripts/UIScript.gd" id="4_ui"]
+[ext_resource type="Script" uid="uid://dr33oe5lkvhwr" path="res://scripts/UIScript.gd" id="4_ui"]
+[ext_resource type="Script" uid="uid://c4gomlexrnmgj" path="res://scripts/MiniMapView.gd" id="5_minimap"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ua6yw"]
 atlas = ExtResource("1_dj8aq")
@@ -145,3 +146,25 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "x 10"
+
+[node name="MinimapPanel" type="PanelContainer" parent="Control" unique_id=368213396]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -190.0
+offset_top = 5.0
+offset_right = -7.0
+offset_bottom = 185.0
+grow_horizontal = 0
+
+[node name="MarginContainer4" type="MarginContainer" parent="Control/MinimapPanel" unique_id=712276246]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="MiniMapView" type="Control" parent="Control/MinimapPanel/MarginContainer4" unique_id=1613629827]
+layout_mode = 2
+script = ExtResource("5_minimap")
