@@ -8,11 +8,33 @@ var bullet = preload("res://scenes/bullet.tscn")
 
 var UI
 
+var melee_area
+var melee_poly
+var bat_sprite
+
+var is_melee_attacking = false
+var melee_cooldown = 0.25
+var melee_active_time = 0.12
+var melee_range = 55.0
+var melee_arc_points = 18
+var last_melee_time = -999.0
+
 func _ready():
 	cam = get_viewport().get_camera_2d()
 	animator = get_node("AnimatedSprite2D")
 	UI = get_node("../UI")
+	melee_area = get_node("MeleeArea")
+	melee_poly = get_node("MeleeArea/MeleeShape")
+	bat_sprite = get_node("BatSprite")
 
+	melee_area.monitoring = false
+	bat_sprite.visible = false
+
+	if not melee_area.body_entered.is_connected(_on_melee_area_body_entered):
+		melee_area.body_entered.connect(_on_melee_area_body_entered)
+	_build_melee_semicircle()
+	
+	
 func _physics_process(delta):
 	var horizontal = Input.get_axis("move_left", "move_right")
 	var vertical = Input.get_axis("move_up", "move_down")
@@ -90,4 +112,77 @@ func _physics_process(delta):
 		get_tree().paused = true
 		UI.on_enter_room(Global.room_position)
 	
+	if Input.is_action_just_pressed("melee"):
+		_try_melee_attack()
 	
+func _build_melee_semicircle():
+	var pts = PackedVector2Array()
+	pts.append(Vector2.ZERO)
+
+	for i in range(melee_arc_points + 1):
+		var t = float(i) / float(melee_arc_points)
+		var ang = lerp(-PI * 0.5, PI * 0.5, t)
+		var p = Vector2(cos(ang), sin(ang)) * melee_range
+		pts.append(p)
+
+	melee_poly.polygon = pts
+
+
+func _mouse_dir() -> Vector2:
+	var d = get_global_mouse_position() - global_position
+	if d.length() < 0.001:
+		return Vector2.RIGHT
+	return d.normalized()
+
+
+func _try_melee_attack():
+	var now = Time.get_ticks_msec() / 1000.0
+	if is_melee_attacking:
+		return
+	if now - last_melee_time < melee_cooldown:
+		return
+
+	last_melee_time = now
+	is_melee_attacking = true
+
+	var dir = _mouse_dir()
+
+	var anim_name = "attack_right"
+	if abs(dir.x) > abs(dir.y):
+		if dir.x < 0:
+			anim_name = "attack_left"
+		else:
+			anim_name = "attack_right"
+	else:
+		if dir.y < 0:
+			anim_name = "attack_up"
+		else:
+			anim_name = "attack_down"
+
+	melee_area.rotation = dir.angle()
+
+	melee_area.monitoring = true
+	bat_sprite.visible = true
+	bat_sprite.play(anim_name)
+
+	await get_tree().create_timer(melee_active_time).timeout
+	melee_area.monitoring = false
+
+	await get_tree().create_timer(0.8).timeout
+	bat_sprite.visible = false
+
+	is_melee_attacking = false
+
+func _on_melee_area_body_entered(body):
+	if body == self:
+		return
+
+	if body.has_method("take_damage"):
+		body.take_damage(1)
+	elif body.has_method("hit"):
+		body.hit(1)
+	elif body.is_in_group("damageable"):
+		if body.has_method("die"):
+			body.die()
+	else:
+		print("Melee hit: ", body.name)
