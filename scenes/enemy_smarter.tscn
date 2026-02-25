@@ -70,7 +70,6 @@ target_desired_distance = 3.0
 path_postprocessing = 1
 avoidance_enabled = true
 radius = 25.0
-debug_enabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1963605452]
 sprite_frames = SubResource("SpriteFrames_je4pd")
