@@ -13,9 +13,11 @@ func _physics_process(delta):
 	if collision and collision.get_collider().name != "Player":
 		if collision.get_collider().has_method("slow"):
 			collision.get_collider().slow()
+			get_node("/root/Node2D/Hit").play()
 			if Global.powers["push"] == 1:
 				print("push")
 				collision.get_collider().apply_knockback(self.direction, Global.powers["push"] * 100.0)
 		print(collision.get_collider().name)
+		
 		self.queue_free()
 		#print("AHHH")

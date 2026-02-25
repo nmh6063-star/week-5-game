@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b1cngcmu8icxc"]
 
-[ext_resource type="Script" uid="uid://dlyxtqp1swxn4" path="res://scenes/end_script.gd" id="1_mwn6m"]
+[ext_resource type="Script" uid="uid://dlyxtqp1swxn4" path="res://scripts/end_script.gd" id="1_mwn6m"]
 
 [node name="End" type="Node2D" unique_id=160897129]
 

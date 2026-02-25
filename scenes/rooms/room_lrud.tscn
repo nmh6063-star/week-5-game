@@ -500,7 +500,6 @@ texture = ExtResource("1_gw0wg")
 6:7/0 = 0
 6:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:7/0 = 0
-7:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 8:7/0 = 0
 8:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 9:7/0 = 0
@@ -2068,7 +2067,7 @@ texture = ExtResource("1_gw0wg")
 
 [sub_resource type="TileSet" id="TileSet_fos0i"]
 physics_layer_0/collision_layer = 7
-physics_layer_0/collision_mask = 3
+physics_layer_0/collision_mask = 7
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_cm0pq")
 

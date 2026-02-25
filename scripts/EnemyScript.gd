@@ -99,6 +99,7 @@ func _physics_process(delta):
 			#print(nav_agent.is_target_reached())
 		if health <= 0:
 			Global.enemy_kills += 1
+			get_node("/root/Node2D/Die").play()
 			self.queue_free()
 		if timer > 0:
 			timer -= delta

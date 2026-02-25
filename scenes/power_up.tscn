@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dr3oxkct74nn6"]
 
-[ext_resource type="Script" uid="uid://dssyce4qsyydt" path="res://scenes/powerups.gd" id="1_j7my0"]
+[ext_resource type="Script" uid="uid://dssyce4qsyydt" path="res://scripts/powerups.gd" id="1_j7my0"]
 
 [node name="PowerUp" type="Node2D" unique_id=1970395185]
 

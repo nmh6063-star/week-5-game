@@ -26,6 +26,10 @@ var damaged = false
 var timer = 0.0
 var spread_degrees = 40.0
 
+var fire_audio = preload("res://assets/sounds/Sound_of_a_pistol_firing. (2).wav")
+var fire_audio2 = preload("res://assets/sounds/Shotgun_firing_sounds_captured. (2).wav")
+var melee_audio = preload("res://assets/sounds/DesignedPunch2.wav")
+
 func _ready():
 	cam = get_viewport().get_camera_2d()
 	animator = get_node("AnimatedSprite2D")
@@ -88,6 +92,7 @@ func _physics_process(delta):
 			inst.rotation = atan(distance.y/distance.x)
 			get_tree().get_root().add_child(inst)
 			inst.direction = global_position.direction_to(get_global_mouse_position())
+			$AudioStreamPlayer.stream = fire_audio
 		else:
 			for i in range(5 * Global.powers["shotgun"]):
 				var bullet = bullet.instantiate()
@@ -97,9 +102,11 @@ func _physics_process(delta):
 				var final_direction = base_direction.rotated(random_offset)
 				bullet.direction = final_direction
 				get_tree().get_root().add_child(bullet)
+				$AudioStreamPlayer.stream = fire_audio2
 		Global.bullet_count = clamp(Global.bullet_count - 1, 0, Global.bullet_cap)
 		UI.update_bullet_count()
 		print(Global.bullet_count)
+		$AudioStreamPlayer.play()
 	
 	if Input.is_action_just_pressed("sprint") and Global.powers["dash"] != 0 and Global.bullet_count - floor(7/Global.powers["dash"]) >= 0:
 		Global.bullet_count = clamp(Global.bullet_count - floor(7/Global.powers["dash"]), 0, Global.bullet_cap)
@@ -175,6 +182,8 @@ func _try_melee_attack():
 		return
 	if now - last_melee_time < melee_cooldown:
 		return
+	$AudioStreamPlayer.stream = melee_audio
+	$AudioStreamPlayer.play()
 
 	last_melee_time = now
 	is_melee_attacking = true

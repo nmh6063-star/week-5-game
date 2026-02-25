@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dsy6e5xa2rpj5"
+path="res://.godot/imported/Shotgun_firing_sounds_captured. (2).wav-6db04d546a96764b11e556165fc0f63a.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Shotgun_firing_sounds_captured. (2).wav"
+dest_files=["res://.godot/imported/Shotgun_firing_sounds_captured. (2).wav-6db04d546a96764b11e556165fc0f63a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -58,6 +58,7 @@ animations = [{
 size = Vector2(16, 17)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1130448292]
+collision_mask = 4
 script = ExtResource("1_md0e3")
 enemytype = 1
 

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bcyqwqfpio75t"
+path="res://.godot/imported/Sound_of_an_AWM_rifle_shooting__clear_and_distinct. (2).wav-85a42398d5b755bcc02891774b5eb30f.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Sound_of_an_AWM_rifle_shooting__clear_and_distinct. (2).wav"
+dest_files=["res://.godot/imported/Sound_of_an_AWM_rifle_shooting__clear_and_distinct. (2).wav-85a42398d5b755bcc02891774b5eb30f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
