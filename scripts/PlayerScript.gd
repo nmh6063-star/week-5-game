@@ -93,6 +93,8 @@ func _physics_process(delta):
 			get_tree().get_root().add_child(inst)
 			inst.direction = global_position.direction_to(get_global_mouse_position())
 			$AudioStreamPlayer.stream = fire_audio
+			$AudioStreamPlayer.pitch_scale = randf_range(0.9, 1.2)
+			$AudioStreamPlayer.volume_db = 0.0
 		else:
 			for i in range(5 * Global.powers["shotgun"]):
 				var bullet = bullet.instantiate()
@@ -104,6 +106,8 @@ func _physics_process(delta):
 				bullet.rotation = final_direction.angle()
 				get_tree().get_root().add_child(bullet)
 				$AudioStreamPlayer.stream = fire_audio2
+			$AudioStreamPlayer.pitch_scale = randf_range(0.8, 1.2)
+			$AudioStreamPlayer.volume_db = -6.0
 		Global.bullet_count = clamp(Global.bullet_count - 1, 0, Global.bullet_cap)
 		UI.update_bullet_count()
 		print(Global.bullet_count)
@@ -184,6 +188,8 @@ func _try_melee_attack():
 	if now - last_melee_time < melee_cooldown:
 		return
 	$AudioStreamPlayer.stream = melee_audio
+	$AudioStreamPlayer.pitch_scale = randf_range(0.8, 1.3)
+	$AudioStreamPlayer.volume_db = -3.0
 	$AudioStreamPlayer.play()
 
 	last_melee_time = now
