@@ -101,6 +101,7 @@ func _physics_process(delta):
 				var random_offset = randf_range(-spread / 2.0, spread / 2.0)
 				var final_direction = base_direction.rotated(random_offset)
 				bullet.direction = final_direction
+				bullet.rotation = final_direction.angle()
 				get_tree().get_root().add_child(bullet)
 				$AudioStreamPlayer.stream = fire_audio2
 		Global.bullet_count = clamp(Global.bullet_count - 1, 0, Global.bullet_cap)
