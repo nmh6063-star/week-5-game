@@ -19,9 +19,12 @@ var commit = [0, -25]
 
 var direction
 
-var health = 1
+@export var health = 1
 
 var timer = 0
+
+var damaged = false
+var timer2 = 0
 
 @export var enemytype: int = 0
 
@@ -49,6 +52,13 @@ func _ready():
 
 func _physics_process(delta):
 	if Global.room_position == start_pos:
+		if damaged:
+			self.modulate = Color8(255, 0, 0, 255)
+			timer2 += delta
+			if timer2 > 0.25:
+				timer2 = 0
+				damaged = false
+				self.modulate = Color8(255, 255, 255, 255)
 		knockback_force = lerp(knockback_force, Vector2.ZERO, 0.2)
 		var space_state = get_world_2d().direct_space_state
 		var query = PhysicsRayQueryParameters2D.create(self.position, get_node("/root/Node2D/Player").position)
@@ -99,12 +109,13 @@ func _physics_process(delta):
 			#print(nav_agent.is_target_reached())
 		if health <= 0:
 			Global.enemy_kills += 1
+			Global.points += 1
 			get_node("/root/Node2D/Die").play()
 			self.queue_free()
 		if timer > 0:
 			timer -= delta
 			self.modulate = Color8(0, 255, 255, 255)
-		else:
+		elif !damaged:
 			self.modulate = Color8(255, 255, 255, 255)
 		var player = get_node_or_null("/root/Node2D/Player")
 		if player and bullet_pattern:
@@ -119,6 +130,7 @@ func _on_timer_timeout():
 
 func take_damage(damage):
 	health -= damage
+	damaged = true
 
 func slow():
 	timer = clamp(timer + 1, 0, 5 * Global.slow_multi)

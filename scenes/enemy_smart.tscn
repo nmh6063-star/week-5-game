@@ -61,6 +61,7 @@ size = Vector2(16, 17)
 collision_mask = 4
 script = ExtResource("1_4n1s8")
 speed = 30.0
+health = 2
 enemytype = 2
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=170392627]

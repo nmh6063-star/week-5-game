@@ -10,12 +10,13 @@ var slow_multi = 1.5
 var weights = [1.0, 0.25, 0.0]
 var fire_rate_multi = 1.0
 var floor = 1
+var points = 0
 
 var powers = {
 	"pull": 0,
 	"push": 0,
 	"shotgun": 1,
-	"dash": 1
+	"dash": 0
 }
 
 var visited_rooms := {}

@@ -2,27 +2,36 @@ extends CanvasLayer
 
 @onready var card1Button: Button = get_node("Control/Card 1/VBoxContainer/MarginContainer/Select")
 @onready var card2Button: Button = get_node("Control/Card 2/VBoxContainer/MarginContainer/Select")
+@onready var skip: Button = get_node("Control/Skip")
 
 @onready var card1Label: Label = get_node("Control/Card 1/VBoxContainer/MarginContainer2/Label")
 @onready var card2Label: Label = get_node("Control/Card 2/VBoxContainer/MarginContainer2/Label")
 
+@onready var points: Label = get_node("Control/points")
+
 var ability_list = [{
-	"description": "Add 1 bullet to your bullet cap"
+	"description": "Add 1 bullet to your bullet cap",
+	"points": 4
 },
 {
-	"description": "Add 2 hearts to your health"
+	"description": "Add 2 hearts to your health",
+	"points": 5
 },
 {
-	"description": "Your bullets make enemies move even slower and shoot even slower"
+	"description": "Your bullets make enemies move even slower and shoot even slower",
+	"points": 7
 },
 {
-	"description": "You can press shift to dash. Burn bullets to dash. Subsequent upgrades will decrease the number of bullets needed to dash"
+	"description": "You can press shift to dash. Burn bullets to dash. Subsequent upgrades will decrease the number of bullets needed to dash",
+	"points": 15
 },
 {
-	"description": "Your bullets will now push enemies away. Subsequent upgrades will increase the distance enemies are pushed"
+	"description": "Your bullets will now push enemies away. Subsequent upgrades will increase the distance enemies are pushed",
+	"points": 15
 },
 {
-	"description": "Change your gun to a shotgun. Shoot bullets in a burst rather than one by one. Subsequent upgrades will increase bullets shot"
+	"description": "Change your gun to a shotgun. Shoot bullets in a burst rather than one by one. Subsequent upgrades will increase bullets shot",
+	"points": 20
 }]
 
 var weights = [1.0, 0.7, 0.4, 0.2, 0.15, 0.1]
@@ -36,6 +45,8 @@ func _ready():
 		card1Button.pressed.connect(_on_my_button1_pressed)
 	if card2Button:
 		card2Button.pressed.connect(_on_my_button2_pressed)
+	if skip:
+		skip.pressed.connect(_return_to_game)
 	var num = randf_range(0.0, 1.0)
 	print(num)
 	if num < weights[0] and num > weights[1]:
@@ -63,43 +74,48 @@ func _ready():
 		pick2 = 4
 	else:
 		pick2 = 5
-	card1Label.text = ability_list[pick1]["description"]
-	card2Label.text = ability_list[pick2]["description"]
+	card1Label.text = ability_list[pick1]["description"] + "\n\nPoints needed : " + str(ability_list[pick1]["points"])
+	card2Label.text = ability_list[pick2]["description"] + "\n\nPoints needed : " + str(ability_list[pick2]["points"])
+	points.text = "Kill Points : " + str(Global.points)
 	#print("pick 1 was " + str(pick1))
 	#print("pick 2 was " + str(pick2))
 
 func _on_my_button1_pressed():
 	#print("Button 1 was pressed! Function executed.")
 	print(ability_list[pick1]["description"])
-	if pick1 == 0:
-		Global.bullet_cap += 1
-	elif pick1 == 1:
-		Global.player_health += 2
-	elif pick1 == 2:
-		Global.slow_multi += 0.5
-	elif pick1 == 3:
-		Global.powers["dash"] += 1
-	elif pick1 == 4:
-		Global.powers["push"] += 1
-	elif pick1 == 5:
-		Global.powers["shotgun"] += 1
-	_return_to_game()
+	if Global.points >= ability_list[pick1]["points"]:
+		if pick1 == 0:
+			Global.bullet_cap += 1
+		elif pick1 == 1:
+			Global.player_health += 2
+		elif pick1 == 2:
+			Global.slow_multi += 0.5
+		elif pick1 == 3:
+			Global.powers["dash"] += 1
+		elif pick1 == 4:
+			Global.powers["push"] += 1
+		elif pick1 == 5:
+			Global.powers["shotgun"] += 1
+		Global.points -= ability_list[pick1]["points"]
+		_return_to_game()
 
 func _on_my_button2_pressed():
 	print(ability_list[pick2]["description"])
-	if pick2 == 0:
-		Global.bullet_cap += 1
-	elif pick2 == 1:
-		Global.player_health += 2
-	elif pick2 == 2:
-		Global.slow_multi += 0.5
-	elif pick2 == 3:
-		Global.powers["dash"] += 1
-	elif pick2 == 4:
-		Global.powers["push"] += 1
-	elif pick2 == 5:
-		Global.powers["shotgun"] += 1
-	_return_to_game()
+	if Global.points >= ability_list[pick2]["points"]:
+		if pick2 == 0:
+			Global.bullet_cap += 1
+		elif pick2 == 1:
+			Global.player_health += 2
+		elif pick2 == 2:
+			Global.slow_multi += 0.5
+		elif pick2 == 3:
+			Global.powers["dash"] += 1
+		elif pick2 == 4:
+			Global.powers["push"] += 1
+		elif pick2 == 5:
+			Global.powers["shotgun"] += 1
+		Global.points -= ability_list[pick2]["points"]
+		_return_to_game()
 
 func _return_to_game():
 	Global.visited_rooms = {}
