@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dr3oxkct74nn6"]
 
 [ext_resource type="Script" uid="uid://dssyce4qsyydt" path="res://scripts/powerups.gd" id="1_j7my0"]
+[ext_resource type="Texture2D" uid="uid://cf2nkdqbhsg7u" path="res://assets/PostApocalypse_AssetPack_v1.1.2/UI/Inventory/Inventory_1.png" id="2_ig136"]
 
 [node name="PowerUp" type="Node2D" unique_id=1970395185]
 
@@ -18,20 +19,33 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 50.0
-offset_top = -234.5
-offset_right = 570.0
-offset_bottom = 234.5
+offset_left = 32.0
+offset_top = -197.0
+offset_right = 632.0
+offset_bottom = 199.36365
 grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="ColorRect" type="ColorRect" parent="UI/Control/Card 1" unique_id=1830115789]
+[node name="TextureRect" type="TextureRect" parent="UI/Control/Card 1" unique_id=1867657201]
 layout_mode = 2
-color = Color(0.19434929, 0.19434926, 0.19434926, 1)
+texture = ExtResource("2_ig136")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/Card 1" unique_id=237249040]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/Control/Card 1/VBoxContainer" unique_id=1773275193]
+[node name="MarginContainer2" type="MarginContainer" parent="UI/Control/Card 1/VBoxContainer" unique_id=731495025]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="UI/Control/Card 1/VBoxContainer/MarginContainer2" unique_id=1773275193]
 custom_minimum_size = Vector2(520, 250)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
@@ -40,7 +54,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Select" type="Button" parent="UI/Control/Card 1/VBoxContainer" unique_id=1285621130]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control/Card 1/VBoxContainer" unique_id=130211652]
+layout_mode = 2
+theme_override_constants/margin_left = 170
+theme_override_constants/margin_right = 170
+
+[node name="Select" type="Button" parent="UI/Control/Card 1/VBoxContainer/MarginContainer" unique_id=1180330227]
 layout_mode = 2
 text = "Select"
 
@@ -51,22 +70,35 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -570.0
-offset_top = -234.5
-offset_right = -50.0
-offset_bottom = 234.5
+offset_left = -648.0
+offset_top = -197.0
+offset_right = -48.0
+offset_bottom = 199.36365
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(1, 1.0031066)
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="ColorRect" type="ColorRect" parent="UI/Control/Card 2" unique_id=254531357]
+[node name="TextureRect" type="TextureRect" parent="UI/Control/Card 2" unique_id=1628778545]
 layout_mode = 2
-color = Color(0.19434929, 0.19434926, 0.19434926, 1)
+texture = ExtResource("2_ig136")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/Card 2" unique_id=1421206997]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/Control/Card 2/VBoxContainer" unique_id=2033461678]
+[node name="MarginContainer2" type="MarginContainer" parent="UI/Control/Card 2/VBoxContainer" unique_id=1589097894]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="UI/Control/Card 2/VBoxContainer/MarginContainer2" unique_id=2033461678]
 custom_minimum_size = Vector2(520, 250)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
@@ -75,6 +107,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Select" type="Button" parent="UI/Control/Card 2/VBoxContainer" unique_id=682814943]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control/Card 2/VBoxContainer" unique_id=994267533]
+layout_mode = 2
+theme_override_constants/margin_left = 170
+theme_override_constants/margin_right = 170
+
+[node name="Select" type="Button" parent="UI/Control/Card 2/VBoxContainer/MarginContainer" unique_id=682814943]
 layout_mode = 2
 text = "Select"

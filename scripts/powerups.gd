@@ -1,10 +1,10 @@
 extends CanvasLayer
 
-@onready var card1Button: Button = get_node("Control/Card 1/VBoxContainer/Select")
-@onready var card2Button: Button = get_node("Control/Card 2/VBoxContainer/Select")
+@onready var card1Button: Button = get_node("Control/Card 1/VBoxContainer/MarginContainer/Select")
+@onready var card2Button: Button = get_node("Control/Card 2/VBoxContainer/MarginContainer/Select")
 
-@onready var card1Label: Label = get_node("Control/Card 1/VBoxContainer/Label")
-@onready var card2Label: Label = get_node("Control/Card 2/VBoxContainer/Label")
+@onready var card1Label: Label = get_node("Control/Card 1/VBoxContainer/MarginContainer2/Label")
+@onready var card2Label: Label = get_node("Control/Card 2/VBoxContainer/MarginContainer2/Label")
 
 var ability_list = [{
 	"description": "Add 1 bullet to your bullet cap"
