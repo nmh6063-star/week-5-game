@@ -8,7 +8,7 @@
 size = Vector2(8.433356, 2.828156)
 
 [node name="EnemyBullet" type="CharacterBody2D" unique_id=1903908952]
-collision_mask = 2
+collision_mask = 10
 script = ExtResource("1_eblt")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1292866028]

@@ -7,8 +7,8 @@ func _process(delta: float):
 	velocity = direction * speed
 	var collision = move_and_collide(velocity * delta)
 	if collision:
-		if collision.get_collider().has_method("take_damage"):
-			collision.get_collider().take_damage(1)
+		if collision.get_collider().name == "PlayerHurt":
+			get_node("/root/Node2D/Player").take_damage(1)
 		self.queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:

@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://bak51bmustfqn" path="res://music_script.gd" id="21_1iba3"]
 [ext_resource type="AudioStream" uid="uid://kvd40cox8wqn" path="res://assets/sounds/Metal bang 4.wav" id="22_yxlcp"]
 [ext_resource type="AudioStream" uid="uid://cgoojk0q1y4iq" path="res://assets/sounds/ZOMBIE PUNCH.mp3" id="23_ebg2g"]
+[ext_resource type="Script" uid="uid://cc8xhvqhohw42" path="res://scripts/player_hurt.gd" id="24_2ofn6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rarhs"]
 atlas = ExtResource("3_0bbpv")
@@ -1607,6 +1608,9 @@ physics_layer_0/collision_layer = 7
 physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_1nqs0")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ebg2g"]
+size = Vector2(8, 9)
+
 [node name="Node2D" type="Node2D" unique_id=1769953815]
 script = ExtResource("1_0bbpv")
 
@@ -1621,7 +1625,7 @@ script = ExtResource("3_rarhs")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=915457680]
 sprite_frames = SubResource("SpriteFrames_mwfav")
-animation = &"new_animation"
+animation = &"idle_down"
 autoplay = "idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=427274142]
@@ -1668,5 +1672,14 @@ volume_db = 20.0
 
 [node name="Die" type="AudioStreamPlayer2D" parent="." unique_id=1987459105]
 stream = ExtResource("23_ebg2g")
+
+[node name="PlayerHurt" type="CharacterBody2D" parent="." unique_id=2001508429]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("24_2ofn6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurt" unique_id=850636125]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ebg2g")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
