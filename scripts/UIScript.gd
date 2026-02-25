@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 var _mini_map: Control
+var _dash_controls: HBoxContainer
 
 var _x_min: int = 0
 var _x_max: int = 0
@@ -10,9 +11,19 @@ var _y_max: int = 0
 func _ready():
 	update_bullet_count()
 	_mini_map = $Control/MinimapPanel/MarginContainer4/MiniMapView
+	_dash_controls = $Control/MarginContainer/HBoxContainer/DashControls
 	# Wait until GameManager finished generating and Global.valid_rooms is filled.
 	$Control/MarginContainer3/HBoxContainer/BulletCount.max_value = Global.bullet_cap
 	call_deferred("_init_minimap")
+
+func _process(_delta):
+	if _dash_controls == null:
+		return
+	var dash_power = Global.powers["dash"]
+	_dash_controls.visible = dash_power != 0
+	if _dash_controls.visible:
+		var can_dash = Global.bullet_count >= floor(7.0 / dash_power)
+		_dash_controls.modulate = Color.WHITE if can_dash else Color(0.5, 0.5, 0.5, 1.0)
 
 func _init_minimap() -> void:
 	var gm = get_parent()

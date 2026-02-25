@@ -6,6 +6,10 @@
 [ext_resource type="Script" uid="uid://dr33oe5lkvhwr" path="res://scripts/UIScript.gd" id="4_ui"]
 [ext_resource type="Script" uid="uid://c4gomlexrnmgj" path="res://scripts/MiniMapView.gd" id="5_minimap"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_24e4x"]
+atlas = ExtResource("1_dj8aq")
+region = Rect2(840, 272, 48, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ua6yw"]
 atlas = ExtResource("1_dj8aq")
 region = Rect2(328, 64, 48, 64)
@@ -65,6 +69,22 @@ theme_override_constants/margin_bottom = 0
 layout_mode = 2
 theme_override_constants/separation = 32
 alignment = 2
+
+[node name="DashControls" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=561505589]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TextureButton" type="TextureButton" parent="Control/MarginContainer/HBoxContainer/DashControls" unique_id=936618293]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_24e4x")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/HBoxContainer/DashControls" unique_id=229301485]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Dash"
 
 [node name="AimControls" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=1174500980]
 layout_mode = 2

@@ -15,7 +15,7 @@ var powers = {
 	"pull": 0,
 	"push": 0,
 	"shotgun": 1,
-	"dash": 1
+	"dash": 0
 }
 
 var visited_rooms := {}
