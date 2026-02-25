@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cbfmwvqdl3hp4" path="res://assets/PostApocalypse_AssetPack_v1.1.2/UI/Bullet Indicators/Pistol-Bullet.png" id="3_5en4g"]
 [ext_resource type="Script" uid="uid://dkwjrqnbdpm6u" path="res://scripts/HealthUI.gd" id="3_health"]
 [ext_resource type="Script" uid="uid://dr33oe5lkvhwr" path="res://scripts/UIScript.gd" id="4_ui"]
+[ext_resource type="Texture2D" uid="uid://cf2nkdqbhsg7u" path="res://assets/PostApocalypse_AssetPack_v1.1.2/UI/Inventory/Inventory_1.png" id="5_3wlde"]
 [ext_resource type="Script" uid="uid://c4gomlexrnmgj" path="res://scripts/MiniMapView.gd" id="5_minimap"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_24e4x"]
@@ -240,13 +241,31 @@ offset_right = -7.0
 offset_bottom = 185.0
 grow_horizontal = 0
 
+[node name="TextureRect" type="TextureRect" parent="Control/MinimapPanel" unique_id=1328162594]
+layout_mode = 2
+texture = ExtResource("5_3wlde")
+
 [node name="MarginContainer4" type="MarginContainer" parent="Control/MinimapPanel" unique_id=712276246]
 layout_mode = 2
 theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
+theme_override_constants/margin_top = 11
 theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_bottom = 11
 
 [node name="MiniMapView" type="Control" parent="Control/MinimapPanel/MarginContainer4" unique_id=1613629827]
 layout_mode = 2
 script = ExtResource("5_minimap")
+
+[node name="MarginContainer4" type="MarginContainer" parent="Control" unique_id=120388442]
+layout_mode = 0
+offset_top = 60.0
+offset_right = 40.0
+offset_bottom = 100.0
+theme_override_constants/margin_left = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer4" unique_id=1410161986]
+layout_mode = 2
+
+[node name="KillPoints" type="Label" parent="Control/MarginContainer4/HBoxContainer" unique_id=1520815136]
+layout_mode = 2
+text = "Kill Points: "

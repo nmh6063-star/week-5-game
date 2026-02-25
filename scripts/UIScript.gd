@@ -2,6 +2,7 @@ extends CanvasLayer
 
 var _mini_map: Control
 var _dash_controls: HBoxContainer
+var _kill_points: Label
 
 var _x_min: int = 0
 var _x_max: int = 0
@@ -12,11 +13,15 @@ func _ready():
 	update_bullet_count()
 	_mini_map = $Control/MinimapPanel/MarginContainer4/MiniMapView
 	_dash_controls = $Control/MarginContainer/HBoxContainer/DashControls
+	_kill_points = $Control/MarginContainer4/HBoxContainer/KillPoints
 	# Wait until GameManager finished generating and Global.valid_rooms is filled.
 	$Control/MarginContainer3/HBoxContainer/BulletCount.max_value = Global.bullet_cap
 	call_deferred("_init_minimap")
 
 func _process(_delta):
+	if _kill_points != null:
+		_kill_points.text = "Kill Points: " + str(Global.points)
+
 	if _dash_controls == null:
 		return
 	var dash_power = Global.powers["dash"]

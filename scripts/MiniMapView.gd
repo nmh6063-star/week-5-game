@@ -12,7 +12,7 @@ extends Control
 @export var visited_color: Color = Color(0.55, 0.55, 0.55, 1.0)
 @export var current_color: Color = Color(1, 1, 1, 1.0)
 @export var outline_color: Color = Color(0.25, 0.25, 0.25, 1.0)
-@export var unvisited_outline_alpha: float = 0.25
+@export var unvisited_outline_alpha: float = 1
 @export var player_dot_radius: float = 2.5
 
 var _x_min: int = 0
