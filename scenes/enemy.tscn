@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b5tahl0jpkqnl" path="res://scripts/EnemyScript.gd" id="1_md0e3"]
 [ext_resource type="Texture2D" uid="uid://kthdee5te054" path="res://assets/PostApocalypse_AssetPack_v1.1.2/Enemies/Zombie_Small/Zombie_Small_Down_Idle-Sheet6.png" id="2_4ra3w"]
-[ext_resource type="PackedScene" uid="uid://ce4p7e5isokx1" path="res://scenes/bullet_patterns/burst_shot.tscn" id="3_4ra3w"]
+[ext_resource type="PackedScene" uid="uid://bphp1atcxopk7" path="res://scenes/bullet_patterns/simple_shot.tscn" id="3_4ra3w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mou0d"]
 atlas = ExtResource("2_4ra3w")
@@ -59,6 +59,7 @@ size = Vector2(16, 17)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1130448292]
 script = ExtResource("1_md0e3")
+enemytype = 1
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=170392627]
 path_desired_distance = 3.0
@@ -78,7 +79,7 @@ shape = SubResource("RectangleShape2D_cm7k6")
 [node name="Timer" type="Timer" parent="." unique_id=451370609]
 autostart = true
 
-[node name="BurstShot" parent="." unique_id=1591347576 instance=ExtResource("3_4ra3w")]
+[node name="SimpleShot" parent="." unique_id=400525675 instance=ExtResource("3_4ra3w")]
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://dslkwm7l7e6i4"]
+
+[ext_resource type="Script" uid="uid://b5tahl0jpkqnl" path="res://scripts/EnemyScript.gd" id="1_4n1s8"]
+[ext_resource type="Texture2D" uid="uid://bgmxsocddwyr6" path="res://assets/PostApocalypse_AssetPack_v1.1.2/Enemies/Zombie_Axe/Zombie_Axe_Down_Idle-Sheet6.png" id="2_4n1s8"]
+[ext_resource type="PackedScene" uid="uid://ce4p7e5isokx1" path="res://scenes/bullet_patterns/burst_shot.tscn" id="3_a2dr8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2dr8"]
+atlas = ExtResource("2_4n1s8")
+region = Rect2(0, 0, 13, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcsae"]
+atlas = ExtResource("2_4n1s8")
+region = Rect2(13, 0, 13, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnnpu"]
+atlas = ExtResource("2_4n1s8")
+region = Rect2(26, 0, 13, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b681m"]
+atlas = ExtResource("2_4n1s8")
+region = Rect2(39, 0, 13, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_foq2x"]
+atlas = ExtResource("2_4n1s8")
+region = Rect2(52, 0, 13, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0kn0"]
+atlas = ExtResource("2_4n1s8")
+region = Rect2(65, 0, 13, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tf73b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2dr8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcsae")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnnpu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b681m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_foq2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0kn0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cm7k6"]
+size = Vector2(16, 17)
+
+[node name="Enemy_Smart" type="CharacterBody2D" unique_id=1130448292]
+script = ExtResource("1_4n1s8")
+speed = 30.0
+enemytype = 2
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=170392627]
+path_desired_distance = 3.0
+target_desired_distance = 3.0
+path_postprocessing = 1
+avoidance_enabled = true
+debug_enabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1963605452]
+sprite_frames = SubResource("SpriteFrames_tf73b")
+autoplay = "default"
+frame = 3
+frame_progress = 0.69483405
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1440189250]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_cm7k6")
+
+[node name="Timer" type="Timer" parent="." unique_id=451370609]
+autostart = true
+
+[node name="BurstShot" parent="." unique_id=1591347576 instance=ExtResource("3_a2dr8")]
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

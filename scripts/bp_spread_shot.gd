@@ -5,10 +5,11 @@ extends BulletPattern
 func fire(target_pos: Vector2 = Vector2.ZERO):
 	if not bullet_scene or not shoot_allowed():
 		return
+	var bullet_count_edit = bullet_count * Global.fire_rate_multi
 		
-	for i in range(bullet_count):
+	for i in range(bullet_count_edit):
 		var bullet = bullet_scene.instantiate()
-		var angle = i * (2 * PI / bullet_count)
+		var angle = i * (2 * PI / bullet_count_edit)
 		
 		# Set bullet position, direction, and angle
 		bullet.global_position = global_position

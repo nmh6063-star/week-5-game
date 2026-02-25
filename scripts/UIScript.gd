@@ -11,6 +11,7 @@ func _ready():
 	update_bullet_count()
 	_mini_map = $Control/MinimapPanel/MarginContainer4/MiniMapView
 	# Wait until GameManager finished generating and Global.valid_rooms is filled.
+	$Control/MarginContainer3/HBoxContainer/BulletCount.max_value = Global.bullet_cap
 	call_deferred("_init_minimap")
 
 func _init_minimap() -> void:
@@ -30,7 +31,7 @@ func _init_minimap() -> void:
 	on_enter_room(Global.room_position)
 
 func update_bullet_count():
-	$Control/MarginContainer3/HBoxContainer/BulletCount.text = "x %d" % Global.bullet_count
+	$Control/MarginContainer3/HBoxContainer/BulletCount.value = Global.bullet_count
 
 func on_enter_room(room_pos: Vector2) -> void:
 	# mark discovery

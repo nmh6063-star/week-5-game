@@ -2,7 +2,7 @@ extends Camera2D
 
 var move = false
 var target = Vector2.ZERO
-var move_speed = 5.0
+var move_speed = 8.0
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS

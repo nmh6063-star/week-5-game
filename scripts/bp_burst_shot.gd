@@ -7,8 +7,8 @@ extends BulletPattern
 func fire(target_pos: Vector2 = Vector2.ZERO):
 	if not bullet_scene or not shoot_allowed():
 		return
-
-	for i in range(burst_count):
+	var burst_edit = burst_count * Global.fire_rate_multi
+	for i in range(burst_edit):
 		var bullet = bullet_scene.instantiate()
 		
 		bullet.global_position = global_position

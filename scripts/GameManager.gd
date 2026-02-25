@@ -11,6 +11,7 @@ var stopGen = false
 var roomDirections = ["LR", "LRD", "LRU", "LRUD"]
 var rooms = []
 var roomAssignment = []
+var roomPositions = []
 var roomy = 0
 var downCounter = 0
 var UI
@@ -30,6 +31,7 @@ func _ready():
 	var roomType = randi_range(0, roomDirections.size()-1)
 	roomAssignment.append(roomDirections[roomType])
 	rooms.append(inst)
+	roomPositions.append(roomPos)
 	while roomPos.y != maxY:
 		_room_gen()
 	var counter = 0
@@ -47,16 +49,18 @@ func _ready():
 			inst.position = Vector2(x, i) * 288
 			roomType = randi_range(0, roomDirections.size()-1)
 			roomAssignment.append(roomDirections[roomType])
+			roomPositions.append(Vector2(x, i))
 			rooms.append(inst)
 	for room in rooms:
 		if counter == 0:
-			room._check(roomAssignment[counter], true)
+			room._check(roomAssignment[counter], true, roomPositions[counter])
 		else:
-			room._check(roomAssignment[counter], false)
+			room._check(roomAssignment[counter], false, roomPositions[counter])
 		counter += 1
 	move_child(get_node("Player"), -1) 
 	move_child(get_node("Enemy"), -1) 
 	move_child(get_node("Cursor"), -1) 
+	move_child(get_node("Barrier"), -1) 
 	
 		
 	# mark valid rooms for minimap
@@ -70,7 +74,7 @@ func _ready():
 	
 
 func _on_timer_timeout():
-	if Global.bullet_count < 10:
+	if Global.bullet_count < Global.bullet_cap:
 		Global.bullet_count += 1
 		UI.update_bullet_count()
 		print("add")
@@ -138,6 +142,7 @@ func _room_gen():
 		lastDir = "pass"
 	inst.position = roomPos * 288
 	rooms.append(inst)
+	roomPositions.append(roomPos)
 
 
 func _unhandled_input(event):
@@ -145,3 +150,9 @@ func _unhandled_input(event):
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_Q:
 			get_tree().quit()
+
+func _process(delta):
+	if Global.room_position.y > maxY:
+		get_tree().change_scene_to_file("res://scenes/power_up.tscn")
+	if Global.player_health <= 0:
+		get_tree().change_scene_to_file("res://scenes/end.tscn")

@@ -9,6 +9,8 @@ var bullet = preload("res://scenes/bullet.tscn")
 var UI
 var Health
 
+var knockback_force = Vector2.ZERO
+
 var melee_area
 var melee_poly
 var bat_sprite
@@ -19,6 +21,10 @@ var melee_active_time = 0.12
 var melee_range = 25.0
 var melee_arc_points = 18
 var last_melee_time = -999.0
+
+var damaged = false
+var timer = 0.0
+var spread_degrees = 40.0
 
 func _ready():
 	cam = get_viewport().get_camera_2d()
@@ -38,21 +44,23 @@ func _ready():
 	
 	
 func _physics_process(delta):
+	knockback_force = lerp(knockback_force, Vector2.ZERO, 0.2)
 	var horizontal = Input.get_axis("move_left", "move_right")
 	var vertical = Input.get_axis("move_up", "move_down")
 	velocity.x = horizontal * 100.0
 	velocity.y = vertical * 100.0
+	velocity += knockback_force
 	move_and_slide()
 	var distance = self.position - get_global_mouse_position()
 	var angle = abs(asin(distance.y/distance.x)) / PI * 2
 	#print(distance)
-	var camPos = self.position
-	if abs(distance.x) > 50.0:
-		camPos = Vector2(self.position.x - clamp((distance.x - (abs(distance.x)/distance.x) * 50.0)/5.0, -25.0, 25.0), camPos.y)
-	if abs(distance.y) > 50.0:
-		camPos = Vector2(camPos.x, self.position.y - clamp((distance.y - (abs(distance.y)/distance.y) * 50.0)/5.0, -25.0, 25.0))
-	camPos = Vector2(clamp(camPos.x, (Global.room_position.x - 1) * 288 + 275, (Global.room_position.x + 1) * 288 - 275), clamp(camPos.y, (Global.room_position.y - 1) * 288 + 225, (Global.room_position.y + 1) * 288 - 225))
-	cam.position = camPos
+	var camPos = Global.room_position * 288
+	#if abs(distance.x) > 50.0:
+	#	camPos = Vector2(self.position.x - clamp((distance.x - (abs(distance.x)/distance.x) * 50.0)/5.0, -25.0, 25.0), camPos.y)
+	#if abs(distance.y) > 50.0:
+	#	camPos = Vector2(camPos.x, self.position.y - clamp((distance.y - (abs(distance.y)/distance.y) * 50.0)/5.0, -25.0, 25.0))
+	#camPos = Vector2(clamp(camPos.x, (Global.room_position.x - 1) * 288 + 275, (Global.room_position.x + 1) * 288 - 275), clamp(camPos.y, (Global.room_position.y - 1) * 288 + 225, (Global.room_position.y + 1) * 288 - 225))
+	cam.position = Vector2(camPos.x, camPos.y + 15)
 	if self.position.x > get_global_mouse_position().x:
 		angle *= -1
 	#print(angle)
@@ -73,49 +81,73 @@ func _physics_process(delta):
 			animator.play(modifier + "_right")
 			
 	if Input.is_action_just_pressed("shoot") and Global.bullet_count > 0:
-		var inst = bullet.instantiate()
-		inst.position = self.position
-		inst.rotation = atan(distance.y/distance.x)
-		get_tree().get_root().add_child(inst)
-		Global.bullet_count -= 1
+		var base_direction = (get_global_mouse_position() - global_position).normalized()
+		if Global.powers["shotgun"] == 0:
+			var inst = bullet.instantiate()
+			inst.position = self.position
+			inst.rotation = atan(distance.y/distance.x)
+			get_tree().get_root().add_child(inst)
+			inst.direction = global_position.direction_to(get_global_mouse_position())
+		else:
+			for i in range(5 * Global.powers["shotgun"]):
+				var bullet = bullet.instantiate()
+				bullet.position = self.position
+				var spread = deg_to_rad(spread_degrees)
+				var random_offset = randf_range(-spread / 2.0, spread / 2.0)
+				var final_direction = base_direction.rotated(random_offset)
+				bullet.direction = final_direction
+				get_tree().get_root().add_child(bullet)
+		Global.bullet_count = clamp(Global.bullet_count - 1, 0, Global.bullet_cap)
 		UI.update_bullet_count()
 		print(Global.bullet_count)
+	
+	if Input.is_action_just_pressed("sprint") and Global.powers["dash"] != 0 and Global.bullet_count - floor(7/Global.powers["dash"]) >= 0:
+		Global.bullet_count = clamp(Global.bullet_count - floor(7/Global.powers["dash"]), 0, Global.bullet_cap)
+		var movement_direction: Vector2 = velocity.normalized()
+		apply_knockback(movement_direction, 500.0)
+		UI.update_bullet_count()
 		
 	# --- Room transition ---
-	var old_center = Global.room_position * 288
-	var cam_offset = cam.position - old_center
 
 	if self.position.x < (Global.room_position.x - 1) * 288 + 125:
 		cam.move = true
 		Global.room_position.x -= 1
 		var new_center = Global.room_position * 288
-		cam.target = new_center + cam_offset
+		cam.target = new_center + Vector2(0, 15)
 		get_tree().paused = true
 		UI.on_enter_room(Global.room_position) # <- 给 minimap 用（下面会加）
 	elif self.position.x > (Global.room_position.x + 1) * 288 - 125:
 		cam.move = true
 		Global.room_position.x += 1
 		var new_center = Global.room_position * 288
-		cam.target = new_center + cam_offset
+		cam.target = new_center + Vector2(0, 15)
 		get_tree().paused = true
 		UI.on_enter_room(Global.room_position)
 	elif self.position.y > (Global.room_position.y + 1) * 288 - 125:
 		cam.move = true
 		Global.room_position.y += 1
 		var new_center = Global.room_position * 288
-		cam.target = new_center + cam_offset - Vector2(0, 125)
+		cam.target = new_center + Vector2(0, 15)
 		get_tree().paused = true
 		UI.on_enter_room(Global.room_position)
 	elif self.position.y < (Global.room_position.y - 1) * 288 + 125:
 		cam.move = true
 		Global.room_position.y -= 1
 		var new_center = Global.room_position * 288
-		cam.target = new_center + cam_offset + Vector2(0, 125)
+		cam.target = new_center + Vector2(0, 15)
 		get_tree().paused = true
 		UI.on_enter_room(Global.room_position)
 	
 	if Input.is_action_just_pressed("melee"):
 		_try_melee_attack()
+	
+	if damaged:
+		self.modulate = Color8(255, 0, 0, 255)
+		timer += delta
+		if timer > 0.25:
+			timer = 0
+			damaged = false
+			self.modulate = Color8(255, 255, 255, 255)
 	
 func _build_melee_semicircle():
 	var pts = PackedVector2Array()
@@ -192,4 +224,8 @@ func _on_melee_area_body_entered(body):
 func take_damage(dmg: int):
 	Global.player_health -= dmg
 	Health.update_hearts()
+	damaged = true
 	print("damage taken")
+
+func apply_knockback(direction: Vector2, strength: float):
+	knockback_force = direction.normalized() * strength
