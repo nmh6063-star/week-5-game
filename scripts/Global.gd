@@ -15,7 +15,7 @@ var points = 0
 var powers = {
 	"pull": 0,
 	"push": 0,
-	"shotgun": 1,
+	"shotgun": 0,
 	"dash": 0
 }
 
